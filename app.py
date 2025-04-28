@@ -540,5 +540,5 @@ st.markdown("""
 # Interesting fact
 st.markdown('<div class="subheader">Interesting Fact</div>', unsafe_allow_html=True)
 st.markdown("""
-#In August 2024, `40rn` rates peaked at ~$6500, reflecting high demand for refrigerated cargo, elevated WTI prices (~$95/barrel), and a stronger USD against CNY (~7.2), increasing costs for Chinese exporters.
+In August 2024, `40rn` rates peaked at ~$6500, reflecting high demand for refrigerated cargo, elevated WTI prices (~$95/barrel), and a stronger USD against CNY (~7.2), increasing costs for Chinese exporters.
 """)
