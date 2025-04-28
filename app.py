@@ -377,7 +377,11 @@ st.markdown('<div class="subheader">Model Performance</div>', unsafe_allow_html=
 for target in performance_metrics:
     metrics = performance_metrics[target]
     st.markdown(f"**{target.upper()}**")
-    st.write(f"- Estimated Certainty: {metrics['Certainty (%)'] if metrics['Certainty (%)'] == 'N/A' else f'{metrics['Certainty (%)']:.2f}%'}")
+    # Extract the certainty value to avoid nesting in f-string
+    certainty = metrics['Certainty (%)']
+    # Format the certainty value
+    formatted_certainty = certainty if certainty == 'N/A' else f"{certainty:.2f}%"
+    st.write(f"- Estimated Certainty: {formatted_certainty}")
     st.write("")
 
 # Container type tabs
@@ -536,5 +540,5 @@ st.markdown("""
 # Interesting fact
 st.markdown('<div class="subheader">Interesting Fact</div>', unsafe_allow_html=True)
 st.markdown("""
-In August 2024, `40rn` rates peaked at ~$6500, reflecting high demand for refrigerated cargo, elevated WTI prices (~$95/barrel), and a stronger USD against CNY (~7.2), increasing costs for Chinese exporters.
+#In August 2024, `40rn` rates peaked at ~$6500, reflecting high demand for refrigerated cargo, elevated WTI prices (~$95/barrel), and a stronger USD against CNY (~7.2), increasing costs for Chinese exporters.
 """)
