@@ -6,4 +6,3 @@ yfinance
 xgboost
 scikit-learn
 openpyxl
-warnings
