@@ -7,3 +7,14 @@ xgboost
 scikit-learn
 openpyxl
 backoff
+streamlit
+pandas
+numpy
+matplotlib
+scikit-learn
+xgboost
+requests
+pytrends
+openai
+openpyxl
+g4f
