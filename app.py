@@ -24,7 +24,7 @@ FORECAST_WEEKS = 4
 AI_MODELS = ["gpt-4o-mini", "gemini-2.5-flash", "grok-3", "deepseek-v3"]
 # ==========================
 
-st.set_page_config(page_title=APP_TITLE, layout="wide")
+st.set_page_config(page_title=APP_TITLE, layout="wide",page_icon= "📈")
 
 # ===== Sidebar config =====
 st.sidebar.header("Configuración")
