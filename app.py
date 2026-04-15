@@ -772,7 +772,7 @@ def render_resumen_tab(rd: dict, hist_start, route_label: str, route_color: str,
         rows.append(row)
 
     if rows:
-        st.dataframe(pd.DataFrame(rows), width='stretch', hide_index=True)
+        st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
 
     st.markdown("---")
     st.markdown("#### Pronóstico 22G0 — Todas las navieras (próximas 4 semanas)")
@@ -789,7 +789,7 @@ def render_resumen_tab(rd: dict, hist_start, route_label: str, route_color: str,
         template=PLOTLY_TMPL, height=340,
         legend=dict(orientation="h", yanchor="bottom", y=1.02),
         hovermode="x unified")
-    st.plotly_chart(fig_comp, width='stretch', key=f"resumen_comp_{route_key}")
+    st.plotly_chart(fig_comp, use_container_width=True, key=f"resumen_comp_{route_key}")
 
     st.markdown("#### Histórico de tarifas 22G0 — Todas las navieras")
     fig_all = go.Figure()
@@ -803,7 +803,7 @@ def render_resumen_tab(rd: dict, hist_start, route_label: str, route_color: str,
         template=PLOTLY_TMPL, height=360,
         legend=dict(orientation="h", yanchor="bottom", y=1.02),
         hovermode="x unified")
-    st.plotly_chart(fig_all, width='stretch', key=f"resumen_all_{route_key}")
+    st.plotly_chart(fig_all, use_container_width=True, key=f"resumen_all_{route_key}")
 
     st.markdown("#### MAPE del modelo por naviera y contenedor")
     hm_data = []
@@ -818,7 +818,7 @@ def render_resumen_tab(rd: dict, hist_start, route_label: str, route_color: str,
         labels=dict(color="MAPE %"),
         title="MAPE promedio — menor es mejor")
     fig_hm.update_layout(template=PLOTLY_TMPL, height=280)
-    st.plotly_chart(fig_hm, width='stretch', key=f"resumen_hm_{route_key}")
+    st.plotly_chart(fig_hm, use_container_width=True, key=f"resumen_hm_{route_key}")
 
 # ═══════════════════════════════════════════════════════════════
 # RENDER: TAB PROVEEDOR
@@ -858,7 +858,7 @@ def render_provider_tab(sp: str, rd: dict, enable_ai: bool, hist_start, route_ke
     for cont, gcol in zip(CONTAINERS, [gc1, gc2, gc3]):
         gcol.plotly_chart(
             _rate_chart(sp_df, cont, sp, preds_xgb, metrics_xgb, hist_start),
-            width='stretch',
+            use_container_width=True,
             key=f"pred_{route_key}_{sp_slug}_{cont}")
 
     # Tabla de predicciones
@@ -875,7 +875,7 @@ def render_provider_tab(sp: str, rd: dict, enable_ai: bool, hist_start, route_ke
             pred_rows.append(row)
 
     if pred_rows:
-        st.dataframe(pd.DataFrame(pred_rows), width='stretch', hide_index=True)
+        st.dataframe(pd.DataFrame(pred_rows), use_container_width=True, hide_index=True)
         # CSV directo desde pred_rows (sin re-indexar en preds_xgb)
         csv_df = pd.DataFrame([
             {"Naviera": sp,
@@ -910,7 +910,7 @@ def render_provider_tab(sp: str, rd: dict, enable_ai: bool, hist_start, route_ke
             yaxis=dict(title="Tarifa (USD)", tickprefix="$", tickformat=",.0f"),
             yaxis2=dict(title="Macro"), template=PLOTLY_TMPL, height=340,
             hovermode="x unified", legend=dict(orientation="h", yanchor="bottom", y=1.02))
-        st.plotly_chart(fig_macro, width='stretch', key=f"macro_{route_key}_{sp_slug}")
+        st.plotly_chart(fig_macro, use_container_width=True, key=f"macro_{route_key}_{sp_slug}")
 
         corr_df = corr_all.get(sp, pd.DataFrame())
         if not corr_df.empty:
@@ -928,7 +928,7 @@ def render_provider_tab(sp: str, rd: dict, enable_ai: bool, hist_start, route_ke
                 except: return ""
             corr_cols = [c for c in ["vs Brent","vs USD/CNY","vs Congest."] if c in corr_df.columns]
             st.dataframe(corr_df.style.map(_corr_color, subset=corr_cols),
-                width='stretch', hide_index=True)
+                use_container_width=True, hide_index=True)
 
     # Feature importance
     with st.expander("🔍 Importancia de características", expanded=False):
@@ -959,7 +959,7 @@ def render_provider_tab(sp: str, rd: dict, enable_ai: bool, hist_start, route_ke
                 fig_fi.update_layout(title=f"<b>{tgt.upper()}</b>",
                     xaxis_title="F-score", yaxis_autorange="reversed",
                     template=PLOTLY_TMPL, height=370, margin=dict(l=5,r=5,t=35,b=15))
-                gcol.plotly_chart(fig_fi, width='stretch', key=f"fi_{route_key}_{sp_slug}_{tgt}")
+                gcol.plotly_chart(fig_fi, use_container_width=True, key=f"fi_{route_key}_{sp_slug}_{tgt}")
             else:
                 gcol.info(f"Sin importancia para {tgt.upper()}")
 
@@ -1054,7 +1054,7 @@ def render_comparativa_tab(route_data: dict):
         diff_rows.append(row)
 
     if diff_rows:
-        st.dataframe(pd.DataFrame(diff_rows), width='stretch', hide_index=True)
+        st.dataframe(pd.DataFrame(diff_rows), use_container_width=True, hide_index=True)
 
     st.markdown("---")
 
@@ -1082,7 +1082,7 @@ def render_comparativa_tab(route_data: dict):
             template=PLOTLY_TMPL, height=360,
             legend=dict(orientation="h", yanchor="bottom", y=1.02),
             hovermode="x unified")
-        st.plotly_chart(fig, width='stretch')
+        st.plotly_chart(fig, use_container_width=True)
 
     st.markdown("---")
 
@@ -1105,7 +1105,7 @@ def render_comparativa_tab(route_data: dict):
         fig_hist.update_yaxes(tickprefix="$", tickformat=",.0f")
         fig_hist.update_layout(template=PLOTLY_TMPL, height=380, hovermode="x unified",
             legend=dict(orientation="h", yanchor="bottom", y=1.02))
-        st.plotly_chart(fig_hist, width='stretch')
+        st.plotly_chart(fig_hist, use_container_width=True)
 
     # ── Heatmap MAPE comparativo ──
     st.markdown("#### MAPE del modelo — BUN vs CTG")
@@ -1123,7 +1123,7 @@ def render_comparativa_tab(route_data: dict):
                 color_continuous_scale="RdYlGn_r",
                 title=f"MAPE {rkey} (%) — menor = mejor")
             fig_hm.update_layout(template=PLOTLY_TMPL, height=280)
-            st.plotly_chart(fig_hm, width='stretch')
+            st.plotly_chart(fig_hm, use_container_width=True)
 
 # ═══════════════════════════════════════════════════════════════
 # ── UI PRINCIPAL ─────────────────────────────────────────────
